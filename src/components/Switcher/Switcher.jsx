@@ -6,10 +6,11 @@ import PropTypes from "prop-types";
 const Switcher = ({ darkClassName = "dark-mode" }) => {
   // Check the user's preferred color scheme
   const prefersDarkMode = useMemo(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      // dark mode
-      return true;
-    }
+    useEffect(() => {
+  if (typeof window !== "undefined") {
+    setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+  }, []);
     return false; // FIXME: look into the `prefers-color-scheme: dark` media query
   }, []);
 

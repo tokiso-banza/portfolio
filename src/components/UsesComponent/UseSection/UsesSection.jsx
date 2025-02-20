@@ -1,4 +1,4 @@
-import "./UsesSection.css";
+import styles from "./UsesSection.module.css";
 import PropTypes from "prop-types";
 import UsesCard from "../UsesCard/UsesSection/UsesCard";
 
