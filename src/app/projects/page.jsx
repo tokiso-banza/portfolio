@@ -3,7 +3,7 @@ import ProjectHeader from "@/components/projectHeader/ProjectHeader";
 import ProjectsCard from "@/components/ProjectComponent/ProjectsCard";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-export const metadata = {
+  const metadata = {
   title: "Portfolio - Projects",
   description: "The projects page of my portfolio.",
 };

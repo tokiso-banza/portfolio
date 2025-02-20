@@ -2,7 +2,7 @@ import UsesHeader from "@/components/UsesHeader/UsesHeader";
 import UsesSection from "@/components/UsesComponent/UseSection/UsesSection";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-export const metadata = {
+  const metadata = {
   title: "Portfolio - Uses",
   description: "The uses page of my portfolio.",
 };
