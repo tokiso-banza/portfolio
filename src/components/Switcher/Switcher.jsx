@@ -1,50 +1,46 @@
 "use client";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./Switcher.css";
 import PropTypes from "prop-types";
 
 const Switcher = ({ darkClassName = "dark-mode" }) => {
-  // Check the user's preferred color scheme
-  const prefersDarkMode = useMemo(() => {
-    useEffect(() => {
-  if (typeof window !== "undefined") {
-    setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
-  }
-  }, []);
-    return false; // FIXME: look into the `prefers-color-scheme: dark` media query
-  }, []);
+  const [isDarkMode, setIsDarkMode] = useState(
+    () => typeof window !== "undefined" && window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
 
-  // State to hold the selected theme
-  const [isDarkMode, setIsDarkMode] = useState(prefersDarkMode);
-
-  // Apply the selected theme (dark or light) when the component mounts
   useEffect(() => {
-    applyTheme();
-  }, [isDarkMode]);
+    if (typeof window === "undefined") return;
 
-  // Toggle between dark and light mode
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    console.log(!isDarkMode);
-  };
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => setIsDarkMode(e.matches);
 
-  // Apply the selected theme by adding/removing a class to the body element
-  const applyTheme = () => {
+    // Initial setting & update on change
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  const applyTheme = useCallback(() => {
     if (isDarkMode) {
       document.body.classList.add(darkClassName);
-      // document.body.querySelector("profile-header").classList.add("light-font");
       return "☀️";
     } else {
       document.body.classList.remove(darkClassName);
       return "🌙";
     }
+  }, [isDarkMode, darkClassName]);
+
+  useEffect(() => {
+    applyTheme();
+  }, [applyTheme]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    console.log(!isDarkMode);
   };
+
   return (
-    <div className="light-dark-button">
-      {/* <div className="dark-mode"></div> */}
-      <button onClick={toggleTheme} className="btn" data-testid="themeSwitcherButton">
-        {applyTheme()}
-      </button>
+    <div className={isDarkMode ? darkClassName : ""}>
+      {/* Content */}
     </div>
   );
 };
