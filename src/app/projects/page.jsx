@@ -1,3 +1,4 @@
+"use client";
 import ProjectHeader from "@/components/projectHeader/ProjectHeader";
 import ProjectsCard from "@/components/ProjectComponent/ProjectsCard";
 import Navbar from "@/components/Navbar/Navbar";
